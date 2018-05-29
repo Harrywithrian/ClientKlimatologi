@@ -1,0 +1,240 @@
+<!-- header -->
+<div class="ui segment">
+	<h3 id="headerUtama">kode Kelompok : {{kd_kelompok}}</h3>
+</div>
+
+<!-- anggota kelompok -->
+<div class="ui segment">
+	<h4 id="secondaryHeader">Anggota Kelompok</h4>
+	<div class="ui divider"></div>
+
+	<!-- list anggota -->
+	<div class="ui two column grid centered">
+		<div class="column">
+			<h4>Anggota :</h4>
+			<table class="ui celled table">
+				<thead>
+    				<tr>
+      					<th>NIS</th>
+      					<th>Nama</th>
+      					<th class="center aligned">Kelas</th>
+    				</tr>
+  				</thead>
+  				<tbody>
+    				<tr *ngFor="let anggota of anggota">
+      					<td>{{anggota.nis}}</td>
+      					<td>{{anggota.nama}}</td>
+      					<td class="center aligned">{{anggota.angkatan}}</td>
+    				</tr>
+    				<tr class="warning" [hidden]="hideValidasiAnggota">
+    					<td colspan="3">
+    						<h4><i class="warning circle icon"></i>Perhatian!</h4>
+    						Kegiatan untuk melakukan rencana tanam tidak dapat dilaksanakan karena jumlah anggota masih dibawah 7 orang.
+    					</td>
+    				</tr>
+  				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- menghitung Iklim -->
+<div class="ui segment" [hidden]="hideKontenIklim">
+	<h4 id="secondaryHeader">Perhitungan Iklim</h4>
+	<div class="ui divider"></div>
+
+	<!-- penjelasan -->
+	<div class="ui stacked segment">
+		<h4>Penjelasan :</h4>
+		Proses dalam menghitung iklim harus dilakukan oleh seluruh kelompok dengan cara berdiskusi sehingga data iklim yang dihasilkan merupakan kesepakatan bersama.<br>
+		Tata Cara :<br>
+		- Pilih bulan serta periode tahun yang akan di hitung data iklimnya. (contoh : Februari, 2013-2014)<br>
+		- Klik tombol "Generate"<br>
+		- Hitung rata-rata setiap parameter secara berdiskusi<br>
+		- Apabila perhitungan selesai dan sudah yakin dengan perhitungan. klik tombol "Simpan"
+	</div>
+
+	<!-- form cari data iklim -->
+	<div class="ui stacked segment" [hidden]="hideFormIklim">
+		<h4>Form Cari Data Iklim :</h4>
+		<form class="ui form" id="loadIklim" (ngSubmit)="generateIklim()">
+		  	<div class="three fields">
+
+		  		<!-- field bulan -->
+		    	<div class="field">
+          			<label>Bulan</label>
+			    	<div class="ui selection dropdown fluid" id="dropBulan">
+          				<input type="hidden" name="bulan">
+          				<i class="dropdown icon"></i>
+          				<div class="default text">Bulan</div>
+            			<div class="menu">
+              				<div class="item" data-value="01">Januari</div>
+              				<div class="item" data-value="02">Februari</div>
+              				<div class="item" data-value="03">Maret</div>
+              				<div class="item" data-value="04">April</div>
+              				<div class="item" data-value="05">Mei</div>
+              				<div class="item" data-value="06">Juni</div>
+              				<div class="item" data-value="07">Juli</div>
+              				<div class="item" data-value="08">Agustus</div>
+              				<div class="item" data-value="09">September</div>
+              				<div class="item" data-value="10">Oktober</div>
+              				<div class="item" data-value="11">November</div>
+              				<div class="item" data-value="12">Desember</div>
+            			</div>
+          			</div>
+		    	</div>
+
+		    	<!-- tahun awal -->
+		    	<div class="field">
+              		<label>Tahun Awal</label>
+              		<input type="text" placeholder="Tahun" name="tahunAwal">
+            	</div>
+
+            	<!-- tahun akhir -->
+		    	<div class="field">
+		      		<label>Tahun Akhir</label>
+		      		<input type="text" placeholder="Tahun" name="tahunAkhir">
+		    	</div>
+		  	</div>
+
+      		<!-- validasi salah -->
+      		<div class="ui inverted red segment" id="valTambahGagal" [hidden]="showValGenerate">
+        		<h4><i class="warning circle icon"></i>{{errorGenerate}}</h4>
+      		</div>
+
+		  	<div class="field">
+		  		<button class="ui blue button"><i class="ui search icon"></i> Generate </button>
+		    </div>
+		</form>
+	</div>
+
+	<!-- tampil data iklim -->
+	<div class="ui stacked segment" [hidden]="hideDataIklim">
+		<h4>Data Iklim :</h4>
+		<table class="ui basic celled table center aligned">
+			<thead>
+				<tr>
+					<th>Tahun</th>
+					<th>Suhu</th>
+					<th>Kelembaban</th>
+					<th>Curah Hujan</th>
+					<th>Lama Penyinaran</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor = 'let item of dataIklim'>
+					<td>{{kolomTahun(item.kd_klimatologi)}}</td>
+					<td>{{item.suhu}}</td>
+					<td>{{item.kelembaban}}</td>
+					<td>{{item.curah_hujan}}</td>
+					<td>{{item.lpm}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- form hitung iklim -->
+	<div class="ui segment" [hidden]="hideHitungIklim">
+		<h4>Rata-rata Iklim :</h4>
+		<div class="ui divider"></div>
+
+		<!-- form hitung iklim -->
+		<form class="ui form" id="hitungIklim" (ngSubmit)="simpanIklim()">
+			<div class="four fields">
+	           	<div class="field">
+	           		<label>Suhu</label>
+	           		<input type="text" placeholder="Suhu" name="suhu">
+	          	</div>
+	            <div class="field">
+	            	<label>Kelembaban</label>
+	             	<input type="text" placeholder="Kelembaban" name="kelembaban">
+	            </div>
+	            <div class="field">
+	            	<label>Curah Hujan</label>
+	              	<input type="text" placeholder="Curah Hujan" name="curahHujan">
+	            </div>
+	            <div class="field">
+	            	<label>Penyinaran</label>
+	              	<input type="text" placeholder="LPM" name="lpm">
+	            </div>
+			</div>
+
+			 <!-- validasi salah -->
+      		<div class="ui inverted red segment" id="valTambahGagal" [hidden]="showValKlasifikasi">
+        		<h4><i class="warning circle icon"></i>{{errorKlasifikasi}}</h4>
+      		</div>
+
+      		<!-- button -->
+			<div class="field">
+	            <button class="ui blue button">Simpan</button>
+	        </div>
+		</form>
+
+	</div>
+</div>
+
+<!-- memilih tanaman -->
+<div id="pilihTanaman" class="ui segment" [hidden]="hideKontenTanaman">
+	<h4 id="secondaryHeader">Memilih Tanaman</h4>
+	<div class="ui divider"></div>
+
+	<!-- rata-rata iklim -->
+	<div class="ui stacked segment">
+		<h4>Rata-rata Iklim :</h4>
+		<table class="ui basic celled table center aligned">
+			<thead>
+				<tr>
+					<th>Rata-rata Suhu</th>
+					<th>Rata-rata Kelembaban</th>
+					<th>Rata-rata Curah Hujan</th>
+					<th>Rata-rata Lama Penyinaran</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{hasilIklim.rata_suhu}}</td>
+					<td>{{hasilIklim.rata_kelembaban}}</td>
+					<td>{{hasilIklim.rata_ch}}</td>
+					<td>{{hasilIklim.rata_lpm}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- pilih tanaman -->
+	<div class="ui stacked segment">
+		<h4>Tanaman Kelompok :</h4>
+		<table class="ui basic celled table center aligned">
+			<thead>
+				<tr>
+					<th>Nama</th>
+					<th>Lama Tanam</th>
+					<th>Suhu</th>
+					<th>Kelembapan</th>
+					<th>Curah Hujan</th>
+					<th>Lama Penyinaran</th>
+					<th [hidden]="hidePilihTanaman">Aksi</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor = 'let item of dataTanaman' [hidden]="hidePilihTanaman">
+					<td>{{item.nama}}</td>
+					<td>{{item.lama_tanam}}</td>
+					<td>{{item.suhu}}</td>
+					<td>{{item.kelembapan}}</td>
+					<td>{{item.ch}}</td>
+					<td>{{item.lpm}}</td>
+					<td><button class="ui blue button" (click)='pilihTanaman(item.kd_tanaman)'>Pilih</button></td>
+				</tr>
+				<tr [hidden]="hideTanamanKelompok">
+					<td>{{tanamanKelompok.nama}}</td>
+					<td>{{tanamanKelompok.lama_tanam}}</td>
+					<td>{{tanamanKelompok.suhu}}</td>
+					<td>{{tanamanKelompok.kelembapan}}</td>
+					<td>{{tanamanKelompok.ch}}</td>
+					<td>{{tanamanKelompok.lpm}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,106 @@
+<div class="ui two column stackable grid">
+
+	<!-- kolom 1 -->
+	<div class="four wide column">
+
+		<!-- cari kelompok -->
+		<div id="cariKelompok" class="ui segment" [hidden]="showCariKelompok">
+
+			<!-- header -->
+			<h3>Pencarian Kelompok</h3>
+			<div class="ui divider"></div>
+
+			<!-- form Cari kelompok -->
+			<form id="formCariKelompok" class="ui form" (ngSubmit)="cariKelompok()">
+      			<!-- Nama Guru -->
+      			<div class="field">
+        			<label>Nama Guru</label>
+       				<input type="text" placeholder="Cari Guru" [(ngModel)]="cariGuru" name="cariGuru" autocomplete="off">
+      			</div>
+
+      			<!-- submit -->
+      			<div class="ui basic segment center aligned">
+      				<button id="btnCari" class="ui button"><i class="ui search icon"></i>Cari Kelompok</button>
+      			</div>
+    		</form>
+		</div>
+
+		<!-- Pending -->
+		<div id="pendingKelompok" class="ui segment center aligned" [hidden]="showPending">
+			<h3>Kelompok Swakarya</h3>
+			<div class="ui divider"></div>
+			<table class="ui table">
+				<tr>
+					<th>Kelompok</th>
+				</tr>
+				<tr>
+					<td>{{kd_kelompok}}</td>
+				</tr>
+			</table>
+			<table class="ui table">
+				<tr>
+					<th>Nama Guru</th>
+				</tr>
+				<tr>
+					<td>{{namaGuru}}</td>
+				</tr>
+			</table>
+			<div class="ui red inverted segment">
+				<h4>Status : Pending</h4>
+			</div>
+			<button class="ui button" (click)='batalMasukKelompok()'>Batalkan Permintaan Masuk</button>
+		</div>
+	</div>
+
+	<!-- kolom 2 -->
+	<div class="twelve wide column">
+		<div id="daftarKelompokHeader" class="ui segment" [hidden]="showPencarian">
+			<h3>Daftar Kelompok Swakarya</h3>
+
+			<table class="ui celled table center aligned" [hidden]="showDaftarKelompok">
+				<tr>
+					<td id="thead">Kode Kelompok</td>
+					<td id="thead">Nama Guru</td>
+					<td id="thead">Jumlah Anggota</td>
+					<td id="thead">Aksi</td>
+				</tr>
+				<tr *ngFor="let item of hasilPencarian">
+					<td>{{item.kd_kelompok}}</td>
+					<td>{{item.nama}}</td>
+					<td>{{item.anggota}} / 8</td>
+					<td><button class="ui blue button" (click)='modalMasukKelompok(item)'>Masuk</button></td>
+				</tr>
+			</table>
+
+			<div class="ui secondary segment" [hidden]="validasiKelompokKosong">
+				<h3>Kelompok Tidak Ditemukan</h3>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- modal masuk kelompok -->
+<div id="modalMasukKelompok" class="ui tiny modal">
+  <div class="ui segment">
+    <table class="ui basic table">
+      <tr>
+        <td>Kode Kelompok</td>
+        <td>:</td>
+        <td>{{cariKode}}</td>
+      </tr>
+      <tr>
+        <td>Nama Guru</td>
+        <td>:</td>
+        <td>{{cariNama}}</td>
+      </tr>
+      <tr>
+        <td>Jumlah Anggota</td>
+        <td>:</td>
+        <td>{{cariJumlah}} / 8</td>
+      </tr>
+    </table>
+    <h4>Apakah anda akan masuk ke dalam kelompok ini?</h4>
+    <button id="btnHapusGuru" class="ui red button" (click)='MasukKelompok(cariKode)'>Ya</button>
+    <button class="ui button" (click)='closeModalMasuk()'>Tidak</button>
+  </div>
+</div>

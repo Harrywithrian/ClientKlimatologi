@@ -1,0 +1,30 @@
+h3 {
+	font-style: italic;
+}
+
+h4 {
+	font-style: italic;
+}
+
+#headerUtama {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#kembali {
+	margin-top: -5px;
+}
+
+#secondaryHeader {
+	font-style: italic;
+	text-align: center;
+}
+
+#validasiAnggota {
+	color: rgba(0,0,0,0.5);
+}
+
+#textKonfirmasi {
+	color: blue;
+	cursor: pointer;
+}

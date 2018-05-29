@@ -1,0 +1,122 @@
+<div id="kontenIklim" class="ui segment">
+
+  <h3 id="titleIklim">Informasi Iklim</h3>
+  <div class="ui divider"></div>
+  
+  <button id="btnCari" class="ui button right floated" (click) = 'openModalCari()'><i class="ui search icon"></i> Cari Informasi Iklim</button>
+
+  <table class="ui celled striped table center aligned">
+    <thead>
+      <tr>
+        <th>Bulan / Tahun</th>
+        <th>Suhu (<sup>o</sup>C)</th>
+        <th>Kelembaban (%)</th>
+        <th>Tekanan (milibar)</th>
+        <th>Curah Hujan (mm)</th>
+        <th>LPM (jam:menit)</th>
+        <th>Evaporasi (mm)</th>
+        <th>Kecepatan Angin (knot)</th>
+        <th>Arah Angin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr [hidden]="tabelKosong">
+        <td colspan="9"><h3 id="tabelKosong">Data Kosong</h3></td>
+      </tr>
+      <tr *ngFor="let item of dataIklim">
+        <td>{{item.kd_klimatologi}}</td>
+        <td>{{item.suhu}}</td>
+        <td>{{item.kelembaban}}</td>
+        <td>{{item.tekanan}}</td>
+        <td>{{item.curah_hujan}}</td>
+        <td>{{item.lpm}}</td>
+        <td>{{item.evaporasi}}</td>
+        <td>{{item.knot}}</td>
+        <td>{{item.arah_angin}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+</div>
+
+<!-- modal -->
+<div id="cariIklim" class="ui tiny modal">
+  <i class="ui close icon"></i>
+  <div class="header">Cari Informasi Iklim</div>
+
+  <div class="content">
+    <form class="ui form" id="formCariIklim" (ngSubmit)="cariIklim()">
+		<!-- bulan awal -->
+		<div class="field">
+			<div class="two fields">
+        <div class="field">
+          <label>Tahun Awal</label>
+          <input type="text" placeholder="Tahun" name="tahunAwal">
+        </div>
+			  <div class="field">
+          <label>Bulan Awal</label>
+			    <div class="ui selection dropdown" id="dropBulanAwal">
+          <input type="hidden" name="bulanAwal">
+          <i class="dropdown icon"></i>
+          <div class="default text">Bulan</div>
+            <div class="menu">
+              <div class="item" data-value="01">Januari</div>
+              <div class="item" data-value="02">Februari</div>
+              <div class="item" data-value="03">Maret</div>
+              <div class="item" data-value="04">April</div>
+              <div class="item" data-value="05">Mei</div>
+              <div class="item" data-value="06">Juni</div>
+              <div class="item" data-value="07">Juli</div>
+              <div class="item" data-value="08">Agustus</div>
+              <div class="item" data-value="09">September</div>
+              <div class="item" data-value="10">Oktober</div>
+              <div class="item" data-value="11">November</div>
+              <div class="item" data-value="12">Desember</div>
+            </div>
+          </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!-- bulan akhir -->
+  		<div class="field">
+        <div class="two fields">
+            <div class="field">
+              <label>Tahun Akhir</label>
+              <input type="text" placeholder="Tahun" name="tahunAkhir">
+            </div>
+            <div class="field">
+              <label>Bulan Akhir</label>
+              <div class="ui selection dropdown" id="dropBulanAkhir">
+                <input type="hidden" name="bulanAkhir">
+                <i class="dropdown icon"></i>
+                <div class="default text">Bulan</div>
+                <div class="menu">
+                  <div class="item" data-value="01">Januari</div>
+                  <div class="item" data-value="02">Februari</div>
+                  <div class="item" data-value="03">Maret</div>
+                  <div class="item" data-value="04">April</div>
+                  <div class="item" data-value="05">Mei</div>
+                  <div class="item" data-value="06">Juni</div>
+                  <div class="item" data-value="07">Juli</div>
+                  <div class="item" data-value="08">Agustus</div>
+                  <div class="item" data-value="09">September</div>
+                  <div class="item" data-value="10">Oktober</div>
+                  <div class="item" data-value="11">November</div>
+                  <div class="item" data-value="12">Desember</div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- validasi -->
+      <div class="ui inverted red segment" [hidden]="showValidasi">
+        <h4><i class="warning circle icon"></i>{{validasi}}</h4>
+      </div>
+
+  		<button class="ui button"><i class="ui search icon"></i> Cari</button>
+	  </form>
+  </div>
+
+</div>

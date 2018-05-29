@@ -1,0 +1,274 @@
+<!-- konten verifikasi -->
+<div class="ui three column grid" [hidden]="showVerifikasi">
+  <div class="column">
+    <div class="ui segment" [hidden]="showVerifikasi">
+
+      <!-- header -->
+      <h3>Kelola Siswa</h3>
+      <div id="divContent" class="ui divider"></div>
+
+      <!-- form verifikasi -->
+      <form id="formVerifikasi" class="ui form" (ngSubmit)="verifikasi()">
+
+        <!-- password -->
+        <div class="field">
+          <label>Password</label>
+          <input type="password" placeholder="Password" name="verifikasiPass" autocomplete="off">
+        </div>
+
+        <!-- informasi -->
+        <div class="ui segment">
+          <h4><i class="protect green icon"></i>Proteksi Data!</h4>
+          Masukkan kembali password anda agar dapat mencegah kerusakan atau kehilangan data penting.
+        </div>
+
+        <!-- submit -->
+        <button class="ui blue button">Verifikasi</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- konten kelola siswa -->
+<div id="kontenKelolaSiswa" class="ui segment" [hidden]="showKonten">
+
+  <!-- header -->
+  <h3 id="titleSiswa">Kelola Siswa</h3>
+  <div class="ui divider"></div>
+  
+  <!-- button menu kelola -->
+  <div class="button menu">
+    <button class="ui button" (click)='toggleTambah()'><i class="ui plus icon"></i>Tambah Siswa</button>
+    <button class="ui green button" (click)='reloadData()'>Reload Data</button>
+
+    <!-- pencarian -->
+    <div id="cari" class="ui icon input">
+      <input type="text" placeholder="Cari..." [(ngModel)]="fieldCariSiswa" >
+      <i class="inverted blue circular search link icon" (click)='cariSiswa()'></i>
+    </div>
+  </div>
+
+  <!-- tambah data -->
+  <div class="ui segment" [hidden]="showTambah">
+     <!-- header -->
+    <h4 id="headerInput">Tambah Data Siswa</h4>
+    <div id="divContent" class="ui divider"></div>
+
+    <!-- form tambah -->
+    <form id="tambahSiswa" class="ui form" (ngSubmit)="tambahSiswa()">
+
+      <div class="three fields">
+        <!-- nomor induk -->
+        <div class="field">
+          <label>Nomor Induk Siswa</label>
+          <input type="text" placeholder="Nomor Induk" name="tambahNoInduk" autocomplete="off">
+        </div>
+
+        <!-- nama -->
+        <div class="field">
+          <label>Nama Siswa</label>
+          <input type="text" placeholder="Nama Siswa" name="tambahNama" autocomplete="off">
+        </div>
+
+        <!-- nama -->
+        <div class="field">
+          <label>Angkatan</label>
+          <input type="text" placeholder="Angkatan" name="tambahAngkatan" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="two fields">
+        <!-- jurusan -->
+        <div class="field">
+          <label>Jurusan</label>
+          <div class="ui selection dropdown" id="tambahJurusan">
+            <input type="hidden" name="tambahJurusan">
+            <i class="dropdown icon"></i>
+            <div class="default text">Jurusan</div>
+            <div class="menu">
+              <div class="item" data-value="atph">Agribisnis Tanaman Pangan dan Hortikultura (ATPH)</div>
+              <div class="item" data-value="tphp">Penyuluhan Pertanian (TPHP)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- jenis kelamin -->
+        <div class="field">
+          <label>Jenis Kelamin</label>
+          <div class="ui selection dropdown" id="tambahJKelamin">
+            <input type="hidden" name="tambahJKelamin">
+            <i class="dropdown icon"></i>
+            <div class="default text">Jenis Kelamin</div>
+            <div class="menu">
+              <div class="item" data-value="L">Laki-laki</div>
+              <div class="item" data-value="P">Perempuan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- validasi salah -->
+      <div class="ui inverted red segment" id="valTambahGagal" [hidden]="showValGagalTambah">
+        <h4><i class="warning circle icon"></i>{{errorTambah}}</h4>
+      </div>
+
+      <!-- validasi berhasil -->
+      <div class="ui inverted green segment" id="valTambahBerhasil" [hidden]="showValBerhasilTambah">
+        <h4><i class="info circle icon"></i>Data Siswa Berhasil Ditambahkan.</h4>
+      </div>
+
+      <!-- submit -->
+      <button class="ui blue button">Tambah</button>
+    </form>
+  </div>
+
+  <!-- ubah data -->
+  <div class="ui segment" [hidden]="showUbah">
+     <!-- header -->
+    <h4 id="headerInput">Ubah Data Siswa</h4>
+    <div id="divContent" class="ui divider"></div>
+
+    <!-- form ubah -->
+    <form id="ubahSiswa" class="ui form" (ngSubmit)="ubahSiswa()">
+
+      <div class="three fields">
+        <!-- nomor induk -->
+        <div class="field">
+          <label>Nomor Induk Siswa</label>
+          <input type="text" placeholder="Nomor Induk" name="ubahNoInduk" autocomplete="off">
+
+          <!-- field hidden noIndukLama, no induk guru dan PasswordLama -->
+          <input type="hidden" name="noIndukLama">
+          <input type="hidden" name="passwordLama">
+        </div>
+
+        <!-- nama -->
+        <div class="field">
+          <label>Nama Siswa</label>
+          <input type="text" placeholder="Nama Siswa" name="ubahNama" autocomplete="off">
+        </div>
+
+        <!-- nama -->
+        <div class="field">
+          <label>Angkatan</label>
+          <input type="text" placeholder="Angkatan" name="ubahAngkatan" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="three fields">
+        <!-- jurusan -->
+        <div class="field">
+          <label>Jurusan</label>
+          <div class="ui selection dropdown" id="ubahJurusan">
+            <input type="hidden" name="ubahJurusan">
+            <i class="dropdown icon"></i>
+            <div class="default text">Jurusan</div>
+            <div class="menu">
+              <div class="item" data-value="atph">Agribisnis Tanaman Pangan dan Hortikultura (ATPH)</div>
+              <div class="item" data-value="tphp">Penyuluhan Pertanian (TPHP)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- jenis kelamin -->
+        <div class="field">
+          <label>Jenis Kelamin</label>
+          <div class="ui selection dropdown" id="ubahJKelamin">
+            <input type="hidden" name="ubahJKelamin">
+            <i class="dropdown icon"></i>
+            <div class="default text">Jenis Kelamin</div>
+            <div class="menu">
+              <div class="item" data-value="L">Laki-laki</div>
+              <div class="item" data-value="P">Perempuan</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ubah password -->
+        <div class="field">
+          <label>Reset Password</label>
+          <div class="ui selection dropdown" id="resetPass">
+            <input type="hidden" name="resetPass">
+            <i class="dropdown icon"></i>
+            <div class="default text">Reset</div>
+            <div class="menu">
+              <div class="item" data-value="tidak">Tidak</div>
+              <div class="item" data-value="ya">Ya</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- validasi salah -->
+      <div class="ui inverted red segment" id="valUbahGagal" [hidden]="showValGagalUbah">
+        <h4><i class="warning circle icon"></i>{{errorUbah}}</h4>
+      </div>
+
+      <!-- validasi berhasil -->
+      <div class="ui inverted green segment" id="valUbahBerhasil" [hidden]="showValBerhasilUbah">
+        <h4><i class="info circle icon"></i>Data Siswa Berhasil Diubah.</h4>
+      </div>
+
+      <!-- submit -->
+      <button id="btnUbahSiswa" class="ui blue button">Ubah</button>
+
+      <!-- tutup form ubah -->
+      <div class="ui button" (click)='closeUbah()'>Tutup</div>
+    </form>
+  </div>
+
+  <!-- tabel siswa -->
+  <table class="ui celled striped table center aligned">
+    <thead>
+      <tr>
+        <th>NIS</th>
+        <th>Nama</th>
+        <th>Jenis Kelamin</th>
+        <th>Jurusan</th>
+        <th>Angkatan</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataSiswa">
+        <td>{{item.nis}}</td>
+        <td>{{item.nama}}</td>
+        <td>{{item.j_kelamin}}</td>
+        <td>{{item.jurusan}}</td>
+        <td>{{item.angkatan}}</td>
+        <td>{{item.status}}</td>
+        <td>
+          <i class="ui refresh blue icon" (click)='toggleUbah(item)'></i>
+          <i class="ui remove red icon" (click)='modalHapusGuru(item.nis, item.nama)'></i>
+        </td>
+      </tr>
+      <!-- validasi tabel kosong -->
+      <tr [hidden]="tabelKosong">
+        <td colspan="9"><h3 id="tabelKosong">{{validasiKosong}}</h3></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- modal hapus -->
+<div id="modalHapusSiswa" class="ui tiny modal">
+  <div class="ui segment">
+    <table class="ui basic table">
+      <tr>
+        <td>Nis</td>
+        <td>:</td>
+        <td>{{hapusNis}}</td>
+      </tr>
+      <tr>
+        <td>Nama</td>
+        <td>:</td>
+        <td>{{hapusNama}}</td>
+      </tr>
+    </table>
+    <h4>Apakah siswa dengan data tersebut akan dihapus?</h4>
+    <button id="btnHapusSiswa" class="ui red button" (click)='hapusSiswa(hapusNis)'>Hapus</button>
+    <button class="ui button" (click)='closeModal()'>Kembali</button>
+  </div>
+</div>

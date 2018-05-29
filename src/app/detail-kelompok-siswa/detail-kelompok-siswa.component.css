@@ -1,0 +1,26 @@
+h3 {
+	font-style: italic;
+}
+
+h4 {
+	font-style: italic;
+}
+
+#headerUtama {
+	margin-top: 3px;
+	margin-bottom: 0px;
+	font-style: italic;
+}
+
+#kembali {
+	margin-top: -5px;
+}
+
+#secondaryHeader {
+	font-style: italic;
+	margin-bottom: -10px;
+}
+
+td {
+	font-style: italic;
+}

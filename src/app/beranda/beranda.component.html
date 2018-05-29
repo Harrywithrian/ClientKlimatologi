@@ -1,0 +1,135 @@
+<!-- konten utama -->
+<div id="kontenUtama" class="ui segment">
+
+  <!-- header -->
+  <label id="header">Selamat Datang, {{namaPengguna}}</label>
+  <label id="status">Halaman {{statusPengguna}}, {{cuacaTanggal}} {{cuacaBulanStr}} {{cuacaTahun}} - {{cuacaJam}}:{{cuacaMenit}} WIB</label>
+  <div id="divKonten" class="ui divider"></div>
+  
+  <!-- Data Cuaca -->
+  <label id="header">Kondisi Cuaca Hari Ini :</label>
+  <table class="ui basic celled table center aligned">
+    <tr>
+      <td>Suhu Udara</td>
+      <td>Kelembapan Udara</td>
+      <td>Tekanan Udara</td>
+      <td>Curah Hujan</td>
+      <td>LPM</td>
+      <td>Kec.Angin</td>
+      <td>Arah Angin</td>
+    </tr>
+    <tr>
+      <td id="tdCuaca">
+          <img class="ui tiny centered image" src="../../assets/suhu.png"><br>
+          {{statusCuaca.suhu}} <sup>o</sup>C
+      </td>
+      <td id="tdCuaca">
+          <img class="ui tiny centered image" src="../../assets/humidity.png"><br>
+          {{statusCuaca.kelembaban}} %
+      </td>
+      <td id="tdCuaca">
+          <img class="ui tiny centered image" src="../../assets/pressure.png"><br>
+          {{statusCuaca.tekanan}} mb
+      </td>
+      <td id="tdCuaca">
+          <img class="ui tiny centered image" src="../../assets/ch.png"><br>
+          {{statusCuaca.curah_hujan}} mm
+      </td>
+      <td id="tdCuaca">
+          <img class="ui tiny centered image" src="../../assets/lpm.png"><br>
+          {{statusCuaca.lpm}}
+      </td>
+      <td id="tdCuaca">
+          <img class="ui tiny centered image" src="../../assets/windSpeed.png"><br>
+          {{statusCuaca.k_angin}} m/s - {{statusCuaca.knot}} knot
+      </td> 
+      <td id="tdCuaca">
+          <img class="ui tiny centered image" src="../../assets/windDirection.png"><br>
+          {{statusCuaca.arah_angin}}
+      </td>
+    </tr>
+  </table>
+
+  <br>
+
+  <!-- cuaca hari ini -->
+  <label id="header">Tabel Cuaca Hari Ini :</label>
+  <table class="ui celled table center aligned">
+    <thead>
+      <tr>
+        <th>Waktu</th>
+        <th>Suhu Udara (<sup>o</sup>C)</th>
+        <th>Kelembapan Udara (%)</th>
+        <th>Tekanan Udara (mb)</th>
+        <th>Curah Hujan (mm)</th>
+        <th>LPM (jj:mm)</th>
+        <th>Evaporasi (mm)</th>
+        <th>Kec.Angin (m/s)</th>
+        <th>Arah Angin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tabelHarian">
+        <td id="tdBold">{{item.kd_klimatologi}}</td>
+        <td>{{item.suhu}}</td>
+        <td>{{item.kelembaban}}</td>
+        <td>{{item.tekanan}}</td>
+        <td>{{item.curah_hujan}}</td>
+        <td>{{item.lpm}}</td>
+        <td>{{item.k_air}}</td>
+        <td>{{item.k_angin}}</td>
+        <td>{{item.arah_angin}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- grafik -->
+<div id="kontenGrafik" class="ui segment" [hidden]="showGrafik">
+
+  <!-- two column grid -->
+  <div class="ui two column grid">
+    <!-- kolom pertama -->
+    <div class="column">
+      <!-- suhu -->
+      <div class="ui segment">
+        <label id="header">Suhu Udara : {{statusDetik.suhu}} <sup>o</sup>C</label>
+        <canvas #grafikSuhu width="400" height="200"></canvas>
+      </div>
+
+      <!-- tekanan -->
+      <div class="ui segment">
+        <label id="header">Tekanan Udara : {{statusDetik.tekanan}} mb</label>
+        <canvas #grafikTekanan width="400" height="200"></canvas>
+      </div>
+
+      <!-- kecepatan angin -->
+      <div class="ui segment">
+        <label id="header">Kecepatan Angin : {{statusDetik.k_angin}} m/s || Arah Angin : {{statusDetik.arah_angin}}</label>
+        <canvas #grafikKecAngin width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- kolom kedua -->
+    <div class="column">
+      <!-- kelembapan -->
+      <div class="ui segment">
+        <label id="header">Kelembapan Udara : {{statusDetik.kelembaban}} %</label>
+        <canvas #grafikKelembapan width="400" height="200"></canvas>
+      </div>
+
+      <!-- curah Hujan -->
+      <div class="ui segment">
+        <label id="header">Curah Hujan : {{statusDetik.curah_hujan}} mm</label>
+        <canvas #grafikCurahHujan width="400" height="200"></canvas>
+      </div>
+
+      <!-- kecepatan angin -->
+      <div class="ui segment">
+        <label id="header">Ketinggian Air (Panci Evaporasi) : {{statusDetik.k_air}} mm</label>
+        <canvas #grafikEvaporasi width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>

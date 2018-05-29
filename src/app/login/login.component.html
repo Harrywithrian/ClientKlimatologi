@@ -1,0 +1,133 @@
+<div id="body">
+
+<div class="ui two column grid stackable">
+
+  <!-- header -->
+  <div id="header" class="eight wide column">
+
+    <!-- button login -->
+    <a id="loginBtn" (click) = 'openModal()' class="ui button inverted"><i class="sidebar icon"></i> Login</a>
+
+    <!-- judul halaman awal -->
+    <div id="subHeader" class="ui basic segment right aligned">
+      <div class="ui huge header">
+      SMK<br>
+      Pertanian<br>
+      Pembangunan<br>
+      Negeri Lembang
+      </div>
+      <p>Jl. Raya Tangkuban Parahu Km. 3 Cilumber Lembang - Bandung<br>Phone. 022 - 2789348 Fax. 022 - 2786113</p>
+    </div>
+  </div>
+
+  <!-- konten -->
+  <div id="konten" class="eight wide column center aligned">
+    <div class="ui three column grid stackable">
+      <!-- kolom 1 -->
+      <div class="column">
+        <!-- suhu -->
+        <div id="suhu" class="ui segment">
+          <h3>suhu</h3>
+          <img class="ui tiny centered image" src="../../assets/suhu.png">
+          <label>{{dataCuaca.suhu}} <sup>o</sup>C </label>
+        </div>
+
+        <!-- lpm -->
+        <div id="lpm" class="ui segment">
+          <h3>Penyinaran</h3>
+          <img class="ui tiny centered image" src="../../assets/lpm.png">
+          <label>{{dataCuaca.lpm}} </label>
+        </div>
+
+      </div>
+
+      <!-- kolom 2 -->
+      <div class="column">
+        <!-- kelembaban -->
+        <div id="kelembaban" class="ui segment">
+          <h3>Kelembaban</h3>
+          <img class="ui tiny centered image" src="../../assets/humidity.png">
+          <label>{{dataCuaca.kelembaban}} %</label>
+        </div>
+
+        <!-- kelembaban -->
+        <div id="title" class="ui basic segment">
+          Data Terakhir :<br>
+          <h3>
+            {{tanggal}} {{blnstr}} {{tahun}}<br>
+            {{jam}}:{{menit}} WIB
+          </h3>
+        </div>
+      </div>
+
+      <!-- kolom 3 -->
+      <div class="column">
+        <!-- tekanan -->
+        <div id="tekanan" class="ui segment">
+          <h3>Tekanan</h3>
+          <img class="ui tiny centered image" src="../../assets/pressure.png">
+          <label>{{dataCuaca.tekanan}} mb</label>
+        </div>
+
+        <!-- curah hujan -->
+        <div id="curah_hujan" class="ui segment">
+          <h3>Curah Hujan</h3>
+          <img class="ui tiny centered image" src="../../assets/ch.png">
+          <label>{{dataCuaca.curah_hujan}} mm</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui segment">
+      <!-- angin -->
+      <table class="ui very basic table">
+        <tr>
+          <td><b>Kecepatan Angin</b></td>
+          <td><b>:</b></td>
+          <td>{{dataCuaca.k_angin}} M/S</td>
+          <td><b>Knot</b></td>
+          <td><b>:</b></td>
+          <td>{{dataCuaca.knot}} knot</td>
+        </tr>
+        <tr>
+          <td><b>Arah Angin</b></td>
+          <td><b>:</b></td>
+          <td>{{dataCuaca.arah_angin}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+  
+</div>
+
+<!-- modal -->
+<div id="modalLogin" class="ui tiny modal">
+  <div class="header">Login</div>
+
+  <div class="content">
+    <form id="login-form" class="ui form" (ngSubmit)="login()">
+
+      <!-- nomor induk -->
+      <div class="field">
+        <label>Nomor Induk</label>
+        <input type="text" placeholder="Nomor Induk" [(ngModel)]="no_induk" name="no_induk" autocomplete="off">
+      </div>
+
+      <!-- password -->
+      <div class="field">
+        <label>Password</label>
+        <input type="password" placeholder="password" [(ngModel)]="password" name="password" autocomplete="off">
+      </div>
+
+     <!-- validasi login -->
+      <div class="ui inverted red segment" [hidden]="showValidasi">
+        <h4 id="validasiLogin"><i class="warning circle icon"></i>{{errorLogin}}</h4>
+      </div>
+
+      <!-- submit -->
+      <button class="ui button">Login</button>
+    </form>
+  </div>
+</div>

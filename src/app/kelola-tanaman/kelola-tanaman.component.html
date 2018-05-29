@@ -1,0 +1,326 @@
+<!-- konten -->
+<div id="kontenKelolaTanaman" class="ui segment">
+
+	<!-- header -->
+ 	<h3>Kelola Tanaman</h3>
+    <div class="ui divider"></div>
+
+  	<!-- menu button -->
+  	<div class="button menu">
+      <!-- tambah -->
+    	<button class="ui button" (click)='modalTambah()'><i class="ui plus icon"></i>Tambah Tanaman</button>
+      <button class="ui green button" (click)='reloadData()'>Reload Data</button>
+
+    	<!-- pencarian -->
+    	<div id="cari" class="ui icon input">
+      	<input type="text" placeholder="Cari..." [(ngModel)]="fieldCariTanaman">
+      	<i class="inverted blue circular search link icon" (click)='cariTanaman()'></i>
+    	</div>
+  	</div>
+
+  	<!-- tabel tanaman -->
+  	<table class="ui celled striped table center aligned">
+    	<thead>
+      	<tr>
+        	<th>Kode</th>
+        	<th>Nama</th>
+        	<th>Lama Tanam</th>
+        	<th>Aksi</th>
+      	</tr>
+    	</thead>
+    	<tbody>
+      	<tr *ngFor="let item of dataTanaman">
+       		<td>{{item.kd_tanaman}}</td>
+        	<td>{{item.nama}}</td>
+        	<td>{{item.lama_tanam}} Hari</td>
+        	<td>
+              <i class="ui info circle blue icon" (click)='detail(item)'></i>
+         			<i class="ui refresh blue icon" (click)='modalUbah(item)'></i>
+         			<i class="ui remove red icon" (click)='modalHapus(item)'></i>
+        	</td>
+     		</tr>
+        <tr [hidden]="tabelKosong">
+          <td colspan="5"><h3 id="tabelKosong">Data Kosong</h3></td>
+        </tr>
+    	</tbody>
+  	</table>
+</div>
+
+<!-- modal detail tanaman -->
+<div id="modalDetailTanaman" class="ui tiny modal">
+  <div class="header">Detail Tanaman</div>
+
+  <div class="content">
+    
+    <!-- informasi tanaman -->
+    <table class="ui celled table">
+        <tr>
+        <td id="tdBold">Kode Tanaman</td>
+        <td colspan="4">{{detailTanaman.kd_tanaman}}</td>
+      </tr>
+      <tr>
+        <td id="tdBold">Nama Tanaman</td>
+        <td colspan="4">{{detailTanaman.nama}}</td>
+      </tr>
+      <tr>
+        <td id="tdBold">Lama Tanam (Hari)</td>
+        <td colspan="4">{{detailTanaman.lama_tanam}}</td>
+      </tr>
+      <tr>
+        <td id="tdBold">Suhu (<sup>o</sup>C)</td>
+        <td id="tdBold">Min</td>
+        <td>{{detailTanaman.suhu_min}}</td>
+        <td id="tdBold">Maks</td>
+        <td>{{detailTanaman.suhu_maks}}</td>
+      </tr>
+      <tr>
+        <td id="tdBold">Kelembapan (%)</td>
+        <td id="tdBold">Min</td>
+        <td>{{detailTanaman.kelembaban_min}}</td>
+        <td id="tdBold">Maks</td>
+        <td>{{detailTanaman.kelembaban_maks}}</td>
+      </tr>
+      <tr>
+        <td id="tdBold">Curah Hujan (mm)</td>
+        <td id="tdBold">Min</td>
+        <td>{{detailTanaman.ch_min}}</td>
+        <td id="tdBold">Maks</td>
+        <td>{{detailTanaman.ch_maks}}</td>
+      </tr>
+      <tr>
+        <td id="tdBold">Lama Penyinaran (jam:menit)</td>
+        <td id="tdBold">Min</td>
+        <td>{{detailTanaman.lpm_min}}</td>
+        <td id="tdBold">Maks</td>
+        <td>{{detailTanaman.lpm_maks}}</td>
+      </tr>
+    </table>
+
+    <!-- button tutup -->
+    <div class="ui button" (click)='closeModalDetail()'>Tutup</div>
+  </div>
+</div>
+
+<!-- modal tambah tanaman -->
+<div id="modalTambahTanaman" class="ui tiny modal">
+  <div class="ui segment">
+    <h3>Tambah Tanaman</h3>
+    <div id="divKonten" class="ui divider"></div>
+
+    <form id="tambahTanaman" class="ui form" (ngSubmit)="tambahTanaman()">
+
+      <!-- general information -->
+      <div class="three fields">
+        <!-- kode tanaman -->
+        <div class="field">
+          <label>Kode Tanaman</label>
+          <input type="text" placeholder="TXXX" name="kodeTambah" autocomplete="off">
+        </div>
+
+        <!-- nama tanaman -->
+        <div class="field">
+          <label>Nama Tanaman</label>
+          <input type="text" placeholder="Nama" name="namaTambah" autocomplete="off">
+        </div>
+
+        <!-- lama tanam tanaman -->
+        <div class="field">
+          <label>Lama Tanam (Hari)</label>
+          <input type="text" placeholder="Lama Tanam" name="lamaTanamTambah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- suhu -->
+      <div class="two fields">
+        <!-- suhu min tanaman -->
+        <div class="field">
+          <label>Suhu Minimal (<sup>o</sup>C)</label>
+          <input type="text" placeholder="Suhu Min" name="suhuMinTambah" autocomplete="off">
+        </div>
+
+        <!-- suhu maks tanaman -->
+        <div class="field">
+          <label>Suhu Maksimal (<sup>o</sup>C)</label>
+          <input type="text" placeholder="Suhu Maks" name="suhuMaksTambah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- kelembapan -->
+      <div class="two fields">
+        <!-- kelembapan min tanaman -->
+        <div class="field">
+          <label>Kelembapan Minimal (%)</label>
+          <input type="text" placeholder="Kelembapan Min" name="kelembapanMinTambah" autocomplete="off">
+        </div>
+
+        <!-- kelembapan maks tanaman -->
+        <div class="field">
+          <label>Kelembapan Maksimal (%)</label>
+          <input type="text" placeholder="Kelembapan Maks" name="kelembapanMaksTambah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- curah hujan -->
+      <div class="two fields">
+        <!-- curah hujan min tanaman -->
+        <div class="field">
+          <label>Curah Hujan Minimal (mm)</label>
+          <input type="text" placeholder="Curah Hujan Min" name="chMinTambah" autocomplete="off">
+        </div>
+
+        <!-- kelembapan maks tanaman -->
+        <div class="field">
+          <label>Curah Hujan Maksimal (mm)</label>
+          <input type="text" placeholder="Curah Hujan Maks" name="chMaksTambah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- lpm -->
+      <div class="two fields">
+        <!-- lpm min tanaman -->
+        <div class="field">
+          <label>Lama Penyinaran Minimal (jam:menit)</label>
+          <input type="text" placeholder="JJ:MM" name="lpmMinTambah" autocomplete="off">
+        </div>
+
+        <!-- lpm maks tanaman -->
+        <div class="field">
+          <label>Lama Penyinaran Maksimal (jam:menit)</label>
+          <input type="text" placeholder="JJ:MM" name="lpmMaksTambah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- validasi salah -->
+      <div class="ui inverted red segment" [hidden]="showValGagalTambah">
+        <h4><i class="warning circle icon"></i>{{errorTambah}}</h4>
+      </div>
+
+      <!-- submit -->
+      <button class="ui blue button">Tambah</button>
+      <div class="ui button" (click)='closeModalTambah()'>Kembali</div>
+    </form>
+  </div>
+</div>
+
+<!-- modal ubah tanaman -->
+<div id="modalUbahTanaman" class="ui tiny modal">
+  <div class="ui segment">
+    <h3>Ubah Tanaman</h3>
+    <div id="divKonten" class="ui divider"></div>
+
+    <form id="ubahTanaman" class="ui form" (ngSubmit)="ubahTanaman()">
+
+      <!-- general information -->
+      <div class="three fields">
+        <!-- kode tanaman -->
+        <div class="field">
+          <label>Kode Tanaman</label>
+          <input type="text" placeholder="TXXX" name="kodeUbah" autocomplete="off">
+          <input type="hidden" name="kodeLama">
+        </div>
+
+        <!-- nama tanaman -->
+        <div class="field">
+          <label>Nama Tanaman</label>
+          <input type="text" placeholder="Nama" name="namaUbah" autocomplete="off">
+        </div>
+
+        <!-- lama tanam tanaman -->
+        <div class="field">
+          <label>Lama Tanam (Hari)</label>
+          <input type="text" placeholder="Lama Tanam" name="lamaTanamUbah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- suhu -->
+      <div class="two fields">
+        <!-- suhu min tanaman -->
+        <div class="field">
+          <label>Suhu Minimal (<sup>o</sup>C)</label>
+          <input type="text" placeholder="Suhu Min" name="suhuMinUbah" autocomplete="off">
+        </div>
+
+        <!-- suhu maks tanaman -->
+        <div class="field">
+          <label>Suhu Maksimal (<sup>o</sup>C)</label>
+          <input type="text" placeholder="Suhu Maks" name="suhuMaksUbah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- kelembapan -->
+      <div class="two fields">
+        <!-- kelembapan min tanaman -->
+        <div class="field">
+          <label>Kelembapan Minimal (%)</label>
+          <input type="text" placeholder="Kelembapan Min" name="kelembabanMinUbah" autocomplete="off">
+        </div>
+
+        <!-- kelembapan maks tanaman -->
+        <div class="field">
+          <label>Kelembapan Maksimal (%)</label>
+          <input type="text" placeholder="Kelembapan Maks" name="kelembabanMaksUbah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- curah hujan -->
+      <div class="two fields">
+        <!-- curah hujan min tanaman -->
+        <div class="field">
+          <label>Curah Hujan Minimal (mm)</label>
+          <input type="text" placeholder="Curah Hujan Min" name="chMinUbah" autocomplete="off">
+        </div>
+
+        <!-- kelembapan maks tanaman -->
+        <div class="field">
+          <label>Curah Hujan Maksimal (mm)</label>
+          <input type="text" placeholder="Curah Hujan Maks" name="chMaksUbah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- lpm -->
+      <div class="two fields">
+        <!-- lpm min tanaman -->
+        <div class="field">
+          <label>Lama Penyinaran Minimal (jam:menit)</label>
+          <input type="text" placeholder="JJ:MM" name="lpmMinUbah" autocomplete="off">
+        </div>
+
+        <!-- lpm maks tanaman -->
+        <div class="field">
+          <label>Lama Penyinaran Maksimal (jam:menit)</label>
+          <input type="text" placeholder="JJ:MM" name="lpmMaksUbah" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- validasi salah -->
+      <div class="ui inverted red segment" [hidden]="showValGagalUbah">
+        <h4><i class="warning circle icon"></i>{{errorUbah}}</h4>
+      </div>
+
+      <!-- submit -->
+      <button class="ui blue button">Ubah</button>
+      <div class="ui button" (click)='closeModalUbah()'>Kembali</div>
+    </form>
+  </div>
+</div>
+
+<!-- modal hapus -->
+<div id="modalHapusTanaman" class="ui tiny modal">
+  <div class="ui segment">
+    <table class="ui basic table">
+      <tr>
+        <td>Kode Tanaman</td>
+        <td>:</td>
+        <td>{{hapusKode}}</td>
+      </tr>
+      <tr>
+        <td>Nama Tanaman</td>
+        <td>:</td>
+        <td>{{hapusNama}}</td>
+      </tr>
+    </table>
+    <h4>Apakah tanaman dengan data tersebut akan dihapus?</h4>
+    <button id="btnHapusGuru" class="ui red button" (click)='hapusTanaman(hapusKode)'>Hapus</button>
+    <button class="ui button" (click)='closeModalHapus()'>Kembali</button>
+  </div>
+</div>

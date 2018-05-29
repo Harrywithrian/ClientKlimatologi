@@ -1,0 +1,182 @@
+<div class="ui segment">
+	<!-- header -->
+	<button id="kembali" class="ui blue button right floated" (click)='kembali()'>Kembali</button>
+	<h3 id="headerUtama">{{detailKelompok.kd_kelompok}}</h3>
+
+	<!-- progress -->
+	<h4>Progress Rencana Tanam :</h4>
+	<div id="progressBar" class="ui teal progress" [attr.data-percent]="detailKelompok.progress">
+		<div class="bar">
+			<div class="progress"></div>
+		</div>
+		<div class="label">Progress : {{detailKelompok.keterangan}}</div>
+	</div>
+</div>
+
+<div class="ui segment">
+	<!-- kelola anggota -->
+	<h3 id="secondaryHeader">Kelola Anggota</h3>
+
+	<!-- list anggota -->
+	<div class="ui two column grid">
+		<!-- anggota diterima -->
+		<div class="column">
+			<div class="ui segment">
+				<h4>Anggota :</h4>
+				<table class="ui celled table">
+					<thead>
+	    				<tr>
+	      					<th>NIS</th>
+	      					<th>Nama</th>
+	      					<th class="center aligned">Kelas</th>
+	    				</tr>
+	  				</thead>
+	  				<tbody>
+	    				<tr *ngFor="let anggota of anggota">
+	      					<td>{{anggota.nis}}</td>
+	      					<td>{{anggota.nama}}</td>
+	      					<td class="center aligned">{{anggota.angkatan}}</td>
+	    				</tr>
+	    				<tr class="ui center aligned" [hidden]="showAnggotaKosong">
+	      					<td colspan="3"><h4 id="validasiAnggota">Tidak Ada Anggota</h4></td>
+	    				</tr>
+	  				</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- anggota request -->
+		<div class="column">
+			<div class="ui segment">
+				<h4>Pending :</h4>
+				<table class="ui celled table">
+					<thead>
+	    				<tr>
+	      					<th>NIS</th>
+	      					<th>Nama</th>
+	      					<th class="center aligned">Kelas</th>
+	      					<th class="center aligned">Action</th>
+	    				</tr>
+	  				</thead>
+	  				<tbody>
+	    				<tr *ngFor="let pending of pending">
+	      					<td>{{pending.nis}}</td>
+	      					<td>{{pending.nama}}</td>
+	      					<td class="center aligned">{{pending.angkatan}}</td>
+	      					<!-- konfirmasi siswa -->
+	      					<td class="center aligned">
+	      						<label id="textKonfirmasi" (click)='modalKonfirmasi(pending)'>Konfirmasi</label>
+	      					</td>
+	    				</tr>
+	    				<tr class="ui center aligned" [hidden]="showRequestKosong">
+	      					<td colspan="4"><h4 id="validasiAnggota">Tidak Ada Permintaan Masuk Kelompok</h4></td>
+	    				</tr>
+	  				</tbody>
+				</table>
+		    </div>
+		</div>
+	</div>
+</div>
+
+<div class="ui segment" [hidden]="showKontenIklim">
+	<!-- perhitungan iklim -->
+	<h3 id="secondaryHeader">Progress : Perhitungan Iklim</h3>
+
+	<div class="ui stacked segment">
+		<h4>Tabel Periode Iklim :</h4>
+		<table class="ui basic celled table center aligned">
+			<thead>
+				<tr>
+					<th>Tahun</th>
+					<th>Suhu</th>
+					<th>Kelembaban</th>
+					<th>Curah Hujan</th>
+					<th>Lama Penyinaran</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor = 'let item of dataIklim'>
+					<td>{{kolomTahun(item.kd_klimatologi)}}</td>
+					<td>{{item.suhu}}</td>
+					<td>{{item.kelembaban}}</td>
+					<td>{{item.curah_hujan}}</td>
+					<td>{{item.lpm}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="ui stacked segment">
+		<h4>Tabel Rata-rata Iklim :</h4>
+		<table class="ui basic celled table center aligned">
+			<thead>
+				<tr>
+					<th>Rata-rata Suhu</th>
+					<th>Rata-rata Kelembaban</th>
+					<th>Rata-rata Curah Hujan</th>
+					<th>Rata-rata Lama Penyinaran</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{hasilIklim.rata_suhu}}</td>
+					<td>{{hasilIklim.rata_kelembaban}}</td>
+					<td>{{hasilIklim.rata_ch}}</td>
+					<td>{{hasilIklim.rata_lpm}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="ui segment" [hidden]="showKontenTanaman">
+	<!-- memilih tanaman -->
+	<h3 id="secondaryHeader">Progress : Memilih Tanaman</h3>
+
+	<div class="ui stacked segment">
+		<table class="ui basic celled table center aligned">
+			<thead>
+				<tr>
+					<th>Nama</th>
+					<th>Lama Tanam</th>
+					<th>Suhu</th>
+					<th>Kelembapan</th>
+					<th>Curah Hujan</th>
+					<th>Lama Penyinaran</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{tanamanKelompok.nama}}</td>
+					<td>{{tanamanKelompok.lama_tanam}} Hari</td>
+					<td>{{tanamanKelompok.suhu}}</td>
+					<td>{{tanamanKelompok.kelembapan}}</td>
+					<td>{{tanamanKelompok.ch}}</td>
+					<td>{{tanamanKelompok.lpm}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<div id="modalKonfirmasi" class="ui tiny modal">
+	<div class="ui segment">
+		<table class="ui celled basic table center aligned">
+			<tr>
+				<td>NIS</td>
+				<td>Nama</td>
+				<td>Kelas</td>
+			</tr>
+			<tr>
+				<td>{{nis}}</td>
+				<td>{{nama}}</td>
+				<td>{{angkatan}}</td>
+			</tr>
+		</table>
+		<div class="ui divider"></div>
+		<h3>apakah siswa akan ditambahkan ke dalam kelompok?</h3>
+		<button class="ui green button" (click)='konfirmasi(nis)'>Ya</button>
+		<button class="ui red button" (click)='tolakReq(nis)'>Tidak</button>
+	</div>
+</div>

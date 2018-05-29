@@ -1,0 +1,38 @@
+<div id="informasiCuaca">
+  <marquee>
+    <i class="indonesia flag"></i>
+    {{tanggal}} {{blnstr}} {{tahun}} - {{jam}}:{{menit}} ||
+    Suhu Udara: {{dataCuaca.suhu}} <sup>o</sup>C ||
+    Kelembapan Udara : {{dataCuaca.kelembaban}} % ||
+    Tekanan Udara : {{dataCuaca.tekanan}} mb ||
+    curah hujan : {{dataCuaca.curah_hujan}} mm ||
+    Kecepatan Angin : {{dataCuaca.k_angin}} m/s ||
+    Status Kecepatan : Normal ||
+    Arah Angin : Utara ||
+    Stasiun Klimatologi Otomatis - SMK Pertanian Pembangunan Negeri Lembang
+  </marquee>
+</div>
+
+<div id="menu" class="ui tiny menu">
+  <div id="titleMenu" class="header item">
+      <i class="world icon"></i>Stasiun Klimatologi Otomatis
+    </div>
+  <div class="right menu">
+    <a id="itemMenu" class="item" [routerLink]="['./kelolaSiswa']">
+      Kelola Siswa
+    </a>
+    <a id="itemMenu" class="item" [routerLink]="['./kelolaGuru']">
+      Kelola Guru
+    </a>
+    <a id="itemMenu" class="item" [routerLink]="['./ubahPassword']">
+      Ubah Password
+    </a>
+    <a id="itemMenu" class="item" (click) = 'logout()'>
+      Logout
+    </a>
+  </div>
+</div>
+
+<div id="konten" class="ui basic segment">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,31 @@
+h3 {
+	font-style: italic;
+	margin-bottom: 0px;
+}
+
+h4 {
+	font-style: italic;
+}
+
+#kontenKelolaSiswa {
+	border:2px solid black;
+	min-height: 522px;
+}
+
+#cari {
+	float: right;
+}
+
+#tabelKosong {
+	color: rgba(0,0,0,0.5);
+	font-style: italic;
+}
+
+#headerInput {
+	font-style: italic;
+	margin-bottom: 0px;
+}
+
+#divContent {
+	margin-top: 0px;
+}

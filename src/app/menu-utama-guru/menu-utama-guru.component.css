@@ -1,0 +1,50 @@
+#informasiCuaca {
+	padding-top: 5px;
+	height: 18px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+#menu {
+	border-radius: 0px;
+	margin-bottom: 0px;
+	padding-right: 100px;
+	padding-left: 100px;
+	background-color: rgb(50,50,50);
+	border-bottom : 2px solid rgb(51,173,255);
+	border-top : 2px solid rgb(51,173,255);
+}
+
+#titleMenu {
+	font-size : 14px;
+	color : white;
+	font-weight: bold;
+	font-style: italic;
+}
+
+#titleMenu:hover {
+	text-shadow: 3px 3px 5px rgb(51,173,255);
+}
+
+#itemMenu {
+	font-size : 14px;
+	color : white;
+	font-weight: bold;
+	font-style: italic;
+}
+
+#itemMenu:hover {
+	background-color: rgb(51,173,255);
+	color: black;
+}
+
+#konten {
+	margin-top: 0px;
+	padding-left: 7%;
+	padding-right: 7%;
+	min-height: 571px;
+	background-image: url('../../assets/background.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+}

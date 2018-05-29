@@ -1,0 +1,39 @@
+<div class="ui two column stackable grid">
+
+	<!-- kolom 1 -->
+	<div class="four wide column">
+		<div id="tambahSegment" class="ui segment center aligned">
+			<h3>Tambah Kelompok</h3>
+			<div class="ui divider"></div>
+			<!-- tambah kelompok -->
+			<p>Kelompok swakarya dapat dibuat secara otomatis dengan melakukan klik generate kelompok.</p>
+			<button class="ui button" (click)='tambahKelompok()'>Generate Kelompok</button>
+		</div>
+	</div>
+
+	<!-- kolom 2 -->
+	<div class="twelve wide column">
+		<!-- list kelompok -->
+		<div id="listKelompok" class="ui segment" *ngFor="let item of listKelompok">
+			<h3>Kode : {{item.kd_kelompok}}</h3>
+			<h4>Progress Rencana Tanam :</h4>
+			<div id="kelompok" [attr.data-kelompok]="item.kd_kelompok" class="ui teal progress" [attr.data-percent]="item.progress">
+			  <div class="bar">
+			  	<div class="progress"></div>
+			  </div>
+			  <div class="label">Progress : {{item.keterangan}}</div>
+			</div>
+			<button class="ui button" (click)='detailKelompok(item.kd_kelompok)'>Detail</button>
+			<button id="btnHapus" class="ui red button" (click)='modalHapusKelompok(item.kd_kelompok)'>Hapus</button>
+		</div>
+	</div>
+
+</div>
+
+<div id="modalHapusKelompok" class="ui tiny modal">
+	<div class="ui segment">
+		<h3>Apakah kelompok dengan kode : {{kodeHapus}} akan dihapus?</h3>
+		<button class="ui button" (click)='hapusKelompok(kodeHapus)'>Hapus</button>
+		<button class="ui red button" (click)='closeModal()'>Cancel</button>
+	</div>
+</div>

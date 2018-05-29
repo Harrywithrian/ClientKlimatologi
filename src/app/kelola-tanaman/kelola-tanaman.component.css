@@ -1,0 +1,28 @@
+h3 {
+	font-style: italic;
+	margin-bottom: 0px;
+}
+
+#divKonten {
+	margin-top: 0px;
+}
+
+#kontenKelolaTanaman {
+	border:2px solid black;
+	min-height: 522px;
+}
+
+#cari {
+	float: right;
+}
+
+#tabelKosong {
+	color: rgba(0,0,0,0.5);
+	font-style: italic;
+}
+
+#tdBold {
+	font-weight: bold;
+	font-style: italic;
+	background-color: rgb(210,210,210);
+}

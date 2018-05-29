@@ -1,0 +1,47 @@
+#kontenUtama {
+	margin-bottom: 0px;
+}
+
+#kontenGrafik {
+	margin-top: 20px;
+}
+
+#header {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 15px;
+}
+
+#divKonten {
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+#status {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 15px;
+	float: right;
+	text-transform:capitalize;
+}
+
+#tanggal {
+	font-style: italic;
+	float: right;
+	margin-top: 0px;
+}
+
+#tdCuaca {
+	font-style: italic;
+	font-weight: bold;
+}
+
+#tdBold {
+	font-weight: bold;
+	font-style: italic;
+}
+
+#imgArahAngin {
+	margin-top: -10px;
+	margin-left: 19%;
+}

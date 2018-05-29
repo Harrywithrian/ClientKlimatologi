@@ -1,0 +1,40 @@
+h4 {
+	font-style: italic;
+}
+
+#titleIklim {
+	font-style: italic;
+}
+
+#kontenIklim {
+	border:2px solid black;
+	min-height: 522px;
+}
+
+#btnCari {
+	margin-bottom: 20px;
+	border: 2px solid black;
+	color: black;
+	background-color: white;
+	font-style: italic;
+}
+
+#btnCari:hover {
+	margin-bottom: 20px;
+	border: 2px solid black;
+	color: white;
+	background-color: black;
+	font-style: italic;
+}
+
+#validasi {
+	color: red;
+	margin-bottom: 20px;
+	font-style: italic;
+	font-weight: bold;
+}
+
+#tabelKosong {
+	color: rgba(0,0,0,0.5);
+	font-style: italic;
+}
